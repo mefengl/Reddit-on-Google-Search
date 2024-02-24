@@ -1,3 +1,12 @@
+# Reddit on Google Search (forked from Alexyoe's original script)
+
+changes:
+- added settings in Tampermonkey dashboard
+
+github repo: https://github.com/mefengl/Reddit-on-Google-Search
+
+original repo: https://github.com/Alexyoe/reddit-on-google-search
+
 # Reddit On Google Search
 
 A simple userscript that adds a button to your Google searches to only show results from reddit.com. You can just click on the button and it will automatically add `site:reddit.com` to your search!
