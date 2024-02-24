@@ -1,20 +1,43 @@
 // ==UserScript==
-// @name         Reddit on Google Search
-// @version      1.0.6
+// @name         Reddit on Google Search (forked from Alexyoe's original script)
+// @version      1.0.7
 // @description  Adds a button to search Reddit via Google Search
-// @author       Alexyoe
-// @namespace    https://github.com/Alexyoe/Reddit-on-Google-Search
+// @author       mefengl (original author: Alexyoe)
+// @namespace    https://github.com/mefengl/Reddit-on-Google-Search
 // @license      MIT
 // @include      http*://www.google.*/search*
 // @include      http*://google.*/search*
 // @run-at       document-end
+// @grant        GM_getValue
+// @grant        GM_setValue
+// @grant        GM_registerMenuCommand
 // ==/UserScript==
 
+function useOption(optionName, defaultValue, type = "boolean", enumOptions = []) {
+  let value = GM_getValue(optionName, defaultValue);
+
+  if (type === "boolean") {
+    GM_registerMenuCommand(`Toggle ${optionName} (currently ${value ? "Enabled" : "Disabled"})`, () => {
+      GM_setValue(optionName, !value);
+      window.location.reload();
+    });
+  } else if (type === "enum") {
+    GM_registerMenuCommand(`Cycle ${optionName} (currently ${value})`, () => {
+      const currentIndex = enumOptions.indexOf(value);
+      const nextIndex = (currentIndex + 1) % enumOptions.length;
+      GM_setValue(optionName, enumOptions[nextIndex]);
+      window.location.reload();
+    });
+  }
+
+  return value;
+}
+
 // Settings
-const iconVisible = true; // Toggle icon visibility
-const nameVisible = true; // Toggle name visibility
-const btnPosition = "end"; // Start or End
-const fixSize = false; // Expands the search buttons bar
+const iconVisible = useOption("iconVisible", true); // Toggle icon visibility
+const nameVisible = useOption("nameVisible", true); // Toggle name visibility
+const btnPosition = useOption("btnPosition", "end", "enum", ["start", "end"]); // Start or End
+const fixSize = useOption("fixSize", false);  // Expands the search buttons bar
 
 // Start Code
 const queryRegex = /q=[^&]+/g;
