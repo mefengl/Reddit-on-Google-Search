@@ -2,6 +2,9 @@
 
 changes:
 - added settings in Tampermonkey dashboard
+- added reddit icon to the button
+  - from: [ionicons](https://github.com/ionic-team/ionicons)
+  - license: [MIT](https://github.com/ionic-team/ionicons/blob/main/LICENSE)
 
 github repo: https://github.com/mefengl/Reddit-on-Google-Search
 
